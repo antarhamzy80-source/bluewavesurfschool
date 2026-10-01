@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Blue Wave Surf School"
+description = "Site vitrine de Blue Wave Surf School à Dar Bouazza : présentation des cours de surf, activités enfants, photos de l’école et formulaire d’inscription."
+version = "1.0.0"
+id = "artifacts/blue-wave-surf-school"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24486
+
+[services.development]
+run = "pnpm --filter @workspace/blue-wave-surf-school run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/blue-wave-surf-school", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/blue-wave-surf-school/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24486"
+BASE_PATH = "/"
